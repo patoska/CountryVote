@@ -1,0 +1,41 @@
+# SQLite. Versions 3.8.0 and up are supported.
+#   gem install sqlite3
+#
+#   Ensure the SQLite 3 gem is defined in your Gemfile
+#   gem "sqlite3"
+#
+default: &default
+  adapter: mysql2
+  encoding: utf8mb4
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: <%= ENV.fetch("DB_USER") { "viento_en_popa" } %>
+  password: <%= ENV.fetch("DB_PASSWORD") { "password" } %>
+  host: <%= ENV.fetch("DB_HOST") { "127.0.0.1" } %>
+  timeout: 5000
+
+development:
+  <<: *default
+  database: <%= "#{ENV['DB_NAME']}_development" %>
+
+test:
+  <<: *default
+  database: <%= "#{ENV['DB_NAME']}_test" %>
+
+# Store production database in the storage/ directory, which by default
+# is mounted as a persistent Docker volume in config/deploy.yml.
+production:
+  primary:
+    <<: *default
+    database: <%= ENV["DB_NAME"] %>
+  cache:
+    <<: *default
+    database: <%= "#{ENV['DB_NAME']}_cache" %>
+    migrations_paths: db/cache_migrate
+  queue:
+    <<: *default
+    database: <%= "#{ENV['DB_NAME']}_queue" %>
+    migrations_paths: db/queue_migrate
+  cable:
+    <<: *default
+    database: <%= "#{ENV['DB_NAME']}_cable" %>
+    migrations_paths: db/cable_migrate
