@@ -17,7 +17,7 @@
   }
 
   button {
-    @apply py-[9px] px-[16px] bg-[#EDEDED] rounded-[8px] text-[#8A8C90] font-semibold text-[14px] whitespace-nowrap;
+    @apply py-[9px] px-[16px] bg-[#EDEDED] rounded-[8px] text-[#8A8C90] font-semibold text-[14px] whitespace-nowrap h-fit;
   }
 
   input {
@@ -69,6 +69,14 @@
         width: -webkit-fill-available;
       }
       input {@apply w-full}
+    }
+  }
+  .error {
+    @apply ml-1 mt-1 text-[#FF5245]
+  }
+  .text-input-group {
+    input.error {
+      @apply border-[#FF5245]
     }
   }
 }

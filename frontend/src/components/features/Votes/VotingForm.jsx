@@ -21,6 +21,9 @@ let setCountry = (countryIdInput) => {
 const VotingForm = ({ countries, handleVote, onVote }) => {
   const [isVoting, setIsVoting] = useState(false);
   const [hasVoted, setHasVoted] = useState(false);
+  const [nameError, setNameError] = useState(null);
+  const [emailError, setEmailError] = useState(null);
+  const [countryError, setCountryError] = useState(null);
 
   const options = countries.map((country) => ({
     value: country.id,
@@ -28,14 +31,33 @@ const VotingForm = ({ countries, handleVote, onVote }) => {
   }));
 
   let submit = async () => {
-    if (!name || !email || countryId == 0) return;
+    setNameError(null)
+    setEmailError(null)
+    setCountryError(null)
+    if (!name) setNameError("Empty name")
+    if (!email) setEmailError("Empty email")
+    if (!isValidEmail(email)) setEmailError("Invalid email")
+    if (countryId == 0) setCountryError("Empty country")
+    if (!name || !email || !isValidEmail(email) || countryId == 0) return;
 
     setIsVoting(true)
-    await handleVote(countryId, name, email);
-    
-    setHasVoted(true)
+    let voteRes = await handleVote(countryId, name, email);
     setIsVoting(false)
-    onVote(countryId)
+    if ('errors' in voteRes) {
+      if ('email' in voteRes['errors']) {
+        setEmailError(voteRes['errors']['email'][0])
+      }
+    }
+    else {
+      setHasVoted(true)
+      onVote(countryId)
+    }
+  }
+  let isValidEmail = (email) => {
+    const regex =
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+$/;
+
+    return regex.test(email.trim());
   }
 
   if (hasVoted) {
@@ -59,29 +81,34 @@ const VotingForm = ({ countries, handleVote, onVote }) => {
               placeholder="Name"
               onChange={(e) => setName(e.target.value)}
               disabled={isVoting}
+              error={nameError}
             />
             <TextInput
               name="email"
               placeholder="Email"
               onChange={(e) => setEmail(e.target.value)}
               disabled={isVoting}
+              error={emailError}
             />
             <div><Select
               options={options}
               placeholder="Country"
               onChange={setCountry}
+              error={countryError}
               styles={{
                 control: (baseStyles, state) => ({
                   ...baseStyles,
                   color: '#8A8C90',
-                  borderColor: state.isFocused ? '#8A8C90' : '#EFEFEF',
+                  borderColor: countryError ? '#FF5245' : (state.isFocused ? '#8A8C90' : '#EFEFEF'),
                 }),
                 singleValue: (baseStyles) => ({
                   ...baseStyles,
                   color: '#8A8C90',
                 }),
               }}
-            /></div>
+            />
+            <div className="error">{countryError}</div>
+            </div>
             <Button
               type="submit"
               onClick={submit}

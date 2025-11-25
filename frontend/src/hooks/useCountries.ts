@@ -12,7 +12,6 @@ export const useCountries = () => {
         const data = await fetchCountries();
         setCountries(data);
       } catch (err) {
-        console.log("ERROR", err)
         setError(err.message);
       } finally {
         setIsLoading(false);
@@ -23,7 +22,7 @@ export const useCountries = () => {
 
   const handleVote = async (countryId: number, name: string, email:string) => {
     try {
-      const updatedCountry = await voteForCountry(countryId, name, email);
+      return await voteForCountry(countryId, name, email);
     } catch (err) {
       console.log(`Voting failed: ${err.message}`)
     }

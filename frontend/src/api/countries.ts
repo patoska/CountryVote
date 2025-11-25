@@ -18,7 +18,6 @@ export async function fetchCountries() {
 }
 
 export async function voteForCountry(countryId:number, name:string, email:string) {
-  console.log("POSTING...")
   const response = await fetch(`${API_BASE_URL}/votes`, {
     method: 'POST',
     headers: {
@@ -26,11 +25,10 @@ export async function voteForCountry(countryId:number, name:string, email:string
     },
     body: JSON.stringify({ 'country_id': countryId, email, name }),
   });
-  console.log("POST reponse", response)
 
   if (!response.ok) {
     console.log('Failed to submit vote.')
     throw new Error('Failed to submit vote.');
   }
-  return response.json();
+  return await response.json();
 }
