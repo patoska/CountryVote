@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import { fetchCountries } from '@/api/countries';
+import { fetchCountries, voteForCountry } from '@/api/countries';
 
 export const useCountries = () => {
   const [countries, setCountries] = useState([]);
@@ -21,9 +21,18 @@ export const useCountries = () => {
     loadCountries();
   }, []);
 
+  const handleVote = async (countryId: number, name: string, email:string) => {
+    try {
+      const updatedCountry = await voteForCountry(countryId, name, email);
+    } catch (err) {
+      console.log(`Voting failed: ${err.message}`)
+    }
+  };
+
   return {
     isLoading,
     error,
     countries,
+    handleVote
   };
 };

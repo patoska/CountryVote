@@ -1,4 +1,5 @@
 import './App.css'
+import { useEffect, useState } from 'react';
 import Logo from '@/assets/logo.png';
 import Sep from '@/assets/sep.png'
 import VotingForm from '@/components/features/Votes/VotingForm';
@@ -6,19 +7,34 @@ import CountryList from '@/components/features/Countries/CountryList';
 import TextInput from '@/components/common/TextInput';
 import { useCountries } from '@/hooks/useCountries';
 
-let checkInput = () => {
-
-}
+let checkInput = () => {}
 
 function App() {
   const {
       countries,
-      isLoading,
-      error,
+      handleVote,
     } = useCountries();
+  const [top10, setTop10] = useState([]);
+  const refreshCountries = (countryId) => {
+    countries.forEach((country) => {
+      if (country.id == countryId) {
+        country.votes_count++;
+      }
+    });
+    refreshTop10(countries)
+  }
 
-  let top10 = countries.sort((a, b) => b.votes_count - a.votes_count);
-  top10 = top10.slice(0, 10);
+  useEffect(() => {
+    refreshTop10(countries)
+  }, [countries]);
+
+  const refreshTop10 = (countries) => {
+    setTop10(
+      countries
+        .sort((a, b) => b.votes_count - a.votes_count)
+        .slice(0, 10)
+    )
+  }
 
   return (
     <>
@@ -29,7 +45,7 @@ function App() {
       </div>
 
       <div className="flex flex-col justify-center px-50">
-        <VotingForm></VotingForm>
+        <VotingForm countries={countries} handleVote={handleVote} onVote={refreshCountries}></VotingForm>
         <h1 className="my-4">Top 10 Most Voted Countries</h1>
 
         <TextInput

@@ -50,11 +50,6 @@
 }
 
 @layer components {
-  .loopstudio-logo {
-    @apply flex items-center w-fit h-fit min-w-5 min-h-5 px-5;
-    min-height: -webkit-fill-available;
-  }
-
   .top-navbar {
     @apply flex items-center w-full min-h-[80px] py-4 px-10 text-[14px];
     .logo {
@@ -67,8 +62,13 @@
   }
 
   .vote-form {
-    form {
-      @apply flex flex-row gap-1 justify-between;
+    .form {@apply flex;}
+    .form > div {
+      @apply flex grow flex-row gap-2 justify-between;
+      &>div {
+        width: -webkit-fill-available;
+      }
+      input {@apply w-full}
     }
   }
 }
