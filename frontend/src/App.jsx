@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import Logo from '@/assets/logo.png';
-import VectorSep from '@/assets/Logo/Vector-sep.svg'
+import Sep from '@/assets/sep.png'
 import VotingForm from '@/components/features/Votes/VotingForm';
 import CountryList from '@/components/features/Countries/CountryList';
 import TextInput from '@/components/common/TextInput';
@@ -22,7 +22,7 @@ function App() {
     <>
       <div className="top-navbar">
         <img className="logo mr-3" src={Logo}/>
-        <img src={VectorSep}/>
+        <img src={Sep}/>
         <span className="ml-5">Frontend Developer Challenge</span>        
       </div>
 
