@@ -1,15 +1,15 @@
 const CountryList = ({ countries, searchTerm, setSearchTerm, handleVote }) => {
   if (countries.length === 0 && searchTerm) {
-    return <p>No countries found matching "{searchTerm}".</p>;
+    return <p className="mt-5">No countries found matching "{searchTerm}".</p>;
   }
 
   if (countries.length === 0) {
-     return <p>No countries to display.</p>;
+     return <p className="mt-5">No countries to display.</p>;
   }
 
   return (
     <>
-      <table className="card mt-5">
+      <table className="card my-5">
         <thead>
           <tr>
             <th>Country</th>
@@ -26,7 +26,7 @@ const CountryList = ({ countries, searchTerm, setSearchTerm, handleVote }) => {
               <td>{country.capital}</td>
               <td>{country.region}</td>
               <td>{country.subregion}</td>
-              <td>{country.votes}</td>
+              <td>{country.votes_count}</td>
             </tr>
           ))}
           

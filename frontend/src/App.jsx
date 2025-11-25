@@ -1,22 +1,24 @@
-import { useState } from 'react'
 import './App.css'
 import Logo from '@/assets/logo.png';
 import Sep from '@/assets/sep.png'
 import VotingForm from '@/components/features/Votes/VotingForm';
 import CountryList from '@/components/features/Countries/CountryList';
 import TextInput from '@/components/common/TextInput';
+import { useCountries } from '@/hooks/useCountries';
 
 let checkInput = () => {
 
 }
 
-let countries = [
-  {id: 1, name: "Chile", capital: "Santiago", region: "América", subregion: "Sudamérica", votes: 3},
-  {id: 1, name: "Peru", capital: "Lima", region: "América", subregion: "Sudamérica", votes: 6}
-]
-
 function App() {
-  const [count, setCount] = useState(0)
+  const {
+      countries,
+      isLoading,
+      error,
+    } = useCountries();
+
+  let top10 = countries.sort((a, b) => b.votes_count - a.votes_count);
+  top10 = top10.slice(0, 10);
 
   return (
     <>
@@ -36,8 +38,7 @@ function App() {
           placeholder="Search Country, Capital City, Region or Subregion"
           onChange={checkInput}
         />
-
-        <CountryList countries={countries}/>
+        <CountryList countries={top10}/>
       </div>
 
     </>

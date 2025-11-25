@@ -1,5 +1,3 @@
-import React from 'react';
-
 const TextInput = ({ name, placeholder, value, onChange, ...rest }) => (
   <div className="text-input-group">
     <input
@@ -9,7 +7,7 @@ const TextInput = ({ name, placeholder, value, onChange, ...rest }) => (
       onChange={onChange}
       className="text-input"
       placeholder={placeholder}
-      autocomplete="on"
+      autoComplete="on"
       {...rest}
     />
   </div>
