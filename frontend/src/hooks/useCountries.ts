@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import { fetchCountries, voteForCountry } from '../api/countries';
+import { fetchCountries, voteForCountry } from '@/api/countries';
 
 export const useCountries = () => {
   const [countries, setCountries] = useState([]);

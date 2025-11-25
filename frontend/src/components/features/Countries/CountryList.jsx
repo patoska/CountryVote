@@ -1,8 +1,3 @@
-// src/components/features/Countries/CountryList.jsx
-import React from 'react';
-import CountryItem from './CountryItem';
-import CountrySearch from './CountrySearch';
-
 const CountryList = ({ countries, searchTerm, setSearchTerm, handleVote }) => {
   if (countries.length === 0 && searchTerm) {
     return <p>No countries found matching "{searchTerm}".</p>;
@@ -14,12 +9,30 @@ const CountryList = ({ countries, searchTerm, setSearchTerm, handleVote }) => {
 
   return (
     <>
-      <CountrySearch searchTerm={searchTerm} onSearchChange={setSearchTerm} />
-      <ul style={{ listStyleType: 'none', padding: 0 }}>
-        {countries.map(country => (
-          <CountryItem key={country.id} country={country} onVote={handleVote} />
-        ))}
-      </ul>
+      <table className="card mt-5">
+        <thead>
+          <tr>
+            <th>Country</th>
+            <th>Capital</th>
+            <th>Region</th>
+            <th>Subregion</th>
+            <th>Votes</th>
+          </tr>
+        </thead>
+        <tbody>
+          {countries.map(country => (
+            <tr key={country.id}>
+              <td>{country.name}</td>
+              <td>{country.capital}</td>
+              <td>{country.region}</td>
+              <td>{country.subregion}</td>
+              <td>{country.votes}</td>
+            </tr>
+          ))}
+          
+        </tbody>
+      </table>
+      
     </>
   );
 };

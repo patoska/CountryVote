@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Button from '../../common/Button/Button';
-import TextInput from '../../common/TextInput/TextInput';
+import Button from '@/components/common/Button';
+import TextInput from '@/components/common/TextInput';
 
 const CountryItem = ({ country, onVote }) => {
   const [email, setEmail] = useState('');

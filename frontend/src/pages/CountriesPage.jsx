@@ -1,7 +1,6 @@
-import React from 'react';
-import { useCountries } from '../hooks/useCountries';
-import CountryList from '../components/features/Countries/CountryList';
-import Spinner from '../components/common/Spinner/Spinner';
+import { useCountries } from '@/hooks/useCountries';
+import CountryList from '@/components/features/Countries/CountryList';
+import Spinner from '@/components/common/Spinner';
 
 const CountriesPage = () => {
   const {
