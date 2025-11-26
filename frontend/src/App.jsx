@@ -7,8 +7,6 @@ import CountryList from '@/components/features/Countries/CountryList';
 import TextInput from '@/components/common/TextInput';
 import { useCountries } from '@/hooks/useCountries';
 
-let checkInput = () => {}
-
 function App() {
   const {
       countries,
@@ -36,6 +34,18 @@ function App() {
     )
   }
 
+  const search = (searchInput) => {
+    let q = searchInput.target.value
+    const searchCountry = countries.filter(
+      country =>
+        country.name.includes(q) || 
+        country.capital.includes(q)|| 
+        country.region.includes(q)|| 
+        country.subregion.includes(q)
+      );
+    refreshTop10(searchCountry)
+  }
+
   return (
     <>
       <div className="top-navbar">
@@ -52,7 +62,7 @@ function App() {
           className="min-w-[520px]"
           name="search"
           placeholder="Search Country, Capital City, Region or Subregion"
-          onChange={checkInput}
+          onChange={search}
         />
         <CountryList countries={top10}/>
       </div>
