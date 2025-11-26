@@ -9,7 +9,7 @@ export interface Country {
 }
 
 export async function fetchCountries() {
-  const response = await fetch(`${API_BASE_URL}/countries/index?limit=10`);
+  const response = await fetch(`${API_BASE_URL}/countries`);
 
   if (!response.ok) {
     throw new Error('Failed to fetch countries.');

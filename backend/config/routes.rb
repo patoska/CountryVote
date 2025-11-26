@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get "countries/index"
+  get "countries", to: 'countries#index'
   post "votes", to: 'votes#create'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
